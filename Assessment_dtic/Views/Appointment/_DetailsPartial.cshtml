@@ -1,0 +1,27 @@
+﻿@model Assessment_dtic.Models.Appointment
+
+<h2>Appointment Details</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Patient</th>
+        
+        <td>@Model.Patient?.Name</td>
+    </tr>
+    <tr>
+        <th>Date & Time</th>
+        <td>@Model.AppointmentDateTime.ToString("yyyy-MM-dd HH:mm")</td>
+        
+    </tr>
+    <tr>
+        <th>Appointment Type</th>
+        <td>@Model.AppointmentType</td>
+    </tr>
+    <tr>
+                <th>Appointment Time Slot</th>
+        <td>@Model.AppointmentTimeSlot</td>
+    </tr>
+</table>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-1">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

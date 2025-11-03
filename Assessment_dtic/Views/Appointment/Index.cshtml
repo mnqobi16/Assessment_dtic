@@ -1,0 +1,82 @@
+﻿@model List<Assessment_dtic.Models.Appointment>
+
+<h2>Appointments</h2>
+<a asp-action="Create" class="btn btn-primary mb-3">Create Appointment</a>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Patient</th>
+            <th>Appointment Type</th>
+            <th>Appointment Date</th>
+            <th>Appointment Timeslot</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.Patient?.Name</td>
+                <td>@appointment.AppointmentType</td>
+                <td>@appointment.AppointmentDateTime.ToString("yyyy-MM-dd")</td>
+                <td>@appointment.AppointmentTimeSlot</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-sm btn-warning me-1">Edit</a>
+                    <a asp-action="Details" asp-route-id="@appointment.Id" class="btn btn-sm btn-info me-1">Details</a>
+                    <a asp-action="Delete" asp-route-id="@appointment.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#appointmentsTable').DataTable();
+
+            // Edit Modal
+            $('#editModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var modal = $(this);
+                modal.find('#editModalBody').html('<div class="text-center p-5"><div class="spinner-border"></div></div>');
+                $.get('@Url.Action("Edit", "Appointments")', { id: id }, function (data) {
+                    modal.find('#editModalBody').html(data);
+                });
+            });
+
+            // Details Modal
+            $('#detailsModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var modal = $(this);
+                modal.find('#detailsModalBody').html('<div class="text-center p-5"><div class="spinner-border"></div></div>');
+                $.get('@Url.Action("Details", "Appointments")', { id: id }, function (data) {
+                    modal.find('#detailsModalBody').html(data);
+                });
+            });
+
+            // AJAX submit for Edit
+            $(document).on('submit', '#editAppointmentForm', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            $('#editModal').modal('hide');
+                            location.reload();
+                        } else {
+                            $('#editModalBody').html(response);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    // Example counts; replace with your actual data from the controller
+    var appointmentCount = ViewBag.AppointmentCount ?? 0;
+    var patientCount = ViewBag.PatientCount ?? 0;
+    var doctorCount = ViewBag.DoctorCount ?? 0;
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h1 class="display-4 mb-0">Welcome</h1>
+                </div>
+                <div class="card-body text-center">
+                    <p class="lead">Dashboard Overview</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-info h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Appointments</h5>
+                                    <p class="card-text display-6 text-info">@appointmentCount</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-success h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Patients</h5>
+                                    <p class="card-text display-6 text-success">@patientCount</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-warning h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Doctors</h5>
+                                    <p class="card-text display-6 text-warning">@doctorCount</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

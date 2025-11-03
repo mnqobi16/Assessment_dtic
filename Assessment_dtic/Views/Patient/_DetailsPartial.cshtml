@@ -1,0 +1,11 @@
+﻿@model Assessment_dtic.Models.Patient
+
+<table class="table table-bordered">
+    <tr><th>Name</th><td>@Model.Name</td></tr>
+    <tr><th>Surname</th><td>@Model.Surname</td></tr>
+    <tr><th>ID Number</th><td>@Model.IDNumber</td></tr>
+    <tr><th>Gender</th><td>@Model.Gender</td></tr>
+    <tr><th>Date of Birth</th><td>@Model.DateOfBirth.ToString("yyyy-MM-dd")</td></tr>
+    <tr><th>Phone</th><td>@Model.PhoneNumber</td></tr>
+    <tr><th>Email</th><td>@Model.Email</td></tr>
+</table>

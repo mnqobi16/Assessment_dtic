@@ -1,0 +1,47 @@
+﻿@model Assessment_dtic.Models.Appointment
+
+<h2>Edit Appointment</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="PatientId" class="form-label">Patient</label>
+        <select asp-for="PatientId" asp-items="ViewBag.PatientOptions" class="form-select"></select>
+        <span asp-validation-for="PatientId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AppointmentDateTime" class="form-label">Appointment DateTime</label>
+        <input asp-for="AppointmentDateTime" type="date" class="form-control" />
+        <span asp-validation-for="AppointmentDateTime" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AppointmentTimeSlot" class="form-label">Appointment Time Slot</label>
+        <select asp-for="AppointmentTimeSlot" asp-items="ViewBag.TimeSlotOptions" class="form-select"></select>
+        <span asp-validation-for="AppointmentTimeSlot" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AppointmentType" class="form-label">Appointment Type</label>
+        <select asp-for="AppointmentType" asp-items="ViewBag.TypeOptions" class="form-select"></select>
+        <span asp-validation-for="AppointmentType" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: '@error.ErrorMessage'
+            });
+        </script>
+    }
+}
